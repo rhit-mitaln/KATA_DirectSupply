@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        
+        <!-- First welcome page that contains information about the form the user will submit. The values inside the drop-down box are the codes required by the API to allow the correct category to be loaded -->
         <div class="setup-section active">
             <h1>Trivia Quiz</h1>
             <p class="subtitle">Test your knowledge across different topics</p>
@@ -48,12 +48,14 @@
             <button class="btn-start" onclick="startQuiz()">Start Quiz</button>
         </div>
 
+        <!-- Added a loading screen to indicate to the user that the page is taking some time to load. This is in case the API takes time to respond and aids in giving the user the status information so they know what is going on. -->
         
         <div class="loading" id="loadingSection" style="display: none;">
             <p>Loading questions...</p>
         </div>
 
-        
+        <!-- Actual quiz section which gets the questions from the javascript. -->
+
         <div class="quiz-section" id="quizSection">
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
@@ -72,7 +74,7 @@
             </button>
         </div>
 
-        
+        <!-- The page that shows the quiz results and the updated loaderboard. -->
         <div class="results-section" id="resultsSection">
             <h1>Quiz Complete!</h1>
             <div class="score-label">Your Score</div>
