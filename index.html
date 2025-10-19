@@ -1,0 +1,92 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Quiz application that accesses an external API">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Quiz App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        
+        <div class="setup-section active">
+            <h1>Trivia Quiz</h1>
+            <p class="subtitle">Test your knowledge across different topics</p>
+            <div class="form-group">
+                <label for="category">Select Category:</label>
+                <select id="category">
+                    <option value="">Any Category</option>
+                    <option value="9">General Knowledge</option>
+                    <option value="21">Sports</option>
+                    <option value="23">History</option>
+                    <option value="27">Animals</option>
+                    <option value="29">Comics</option>
+                    <option value="30">Science & Nature</option>
+                    <option value="31">Science & Technology</option>
+                    <option value="32">Computers</option>
+                    <option value="10">Books</option>
+                    <option value="11">Films</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="difficulty">Select Difficulty:</label>
+                <select id="difficulty">
+                    <option value="">Any Difficulty</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Number of Questions:</label>
+                <input type="number" id="amount" min="1" max="50" value="10">
+            </div>
+
+            <button class="btn-start" onclick="startQuiz()">Start Quiz</button>
+        </div>
+
+        
+        <div class="loading" id="loadingSection" style="display: none;">
+            <p>Loading questions...</p>
+        </div>
+
+        
+        <div class="quiz-section" id="quizSection">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <div class="timer" id="timer"></div>
+
+            <div class="question-container">
+                <div class="question-number" id="questionNumber"></div>
+                <div class="question-text" id="questionText"></div>
+                <div class="options" id="optionsContainer"></div>
+            </div>
+
+            <button class="btn-next" id="nextBtn" onclick="nextQuestion()" disabled>
+                Next Question
+            </button>
+        </div>
+
+        
+        <div class="results-section" id="resultsSection">
+            <h1>Quiz Complete!</h1>
+            <div class="score-label">Your Score</div>
+            <div class="score-display" id="scoreDisplay">0/0</div>
+            <div class="feedback" id="feedbackContainer"></div>
+
+            <div class="leaderboard" id="leaderboard"></div>
+
+            <div class="button-group">
+                <button class="btn-restart" onclick="restartQuiz()">Try Again</button>
+                <button class="btn-home" onclick="goHome()">Home</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    </body>
+</html>
