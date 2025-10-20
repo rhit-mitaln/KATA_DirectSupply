@@ -10,12 +10,14 @@ let leaderboard = JSON.parse(localStorage.getItem('quizLeaderboard')) || [];
 
 const API_URL = 'https://opentdb.com/api.php';
 
+// this is a function to help decode html code
 function decodeHTML(html) {
     const txt = document.createElement('textarea');
     txt.innerHTML = html;
     return txt.value;
 }
 
+// Function to fetch questions from the API
 async function startQuiz() {
     const category = document.getElementById('category').value;
     const difficulty = document.getElementById('difficulty').value;
@@ -46,6 +48,7 @@ async function startQuiz() {
         throw new Error('Unable to fetch questions. Please try again.');
     }
 
+    // Extracts the appropriate values from the json received from the API
     quizData = data.results.map(q => ({
         question: decodeHTML(q.question),
         correct_answer: decodeHTML(q.correct_answer),
@@ -63,7 +66,10 @@ async function startQuiz() {
 
     displayQuestion();
     startTimer();
+
     } catch (error) {
+
+        // Error handling to display an appropriate error message in case the loading of the question fails
         console.error('Fetch error:', error);
         document.getElementById('loadingSection').innerHTML = `
         <div class="error">
@@ -75,6 +81,7 @@ async function startQuiz() {
     }
         }
 
+// function to display the questions and update values
 function displayQuestion() {
     const question = quizData[currentQuestion];
     const progress = ((currentQuestion + 1) / quizData.length) * 100;
@@ -100,6 +107,7 @@ function displayQuestion() {
     updateButton();
 }
 
+// function that handles the moment the user enters their selected answer
 function selectAnswer(answer) {
     if (answered) return;
 
@@ -117,6 +125,7 @@ function selectAnswer(answer) {
     document.getElementById('nextBtn').disabled = false;
 }
 
+// Handles displaying the next question
 function nextQuestion() {
     if (!selectedAnswer) return;
 
@@ -151,6 +160,7 @@ function nextQuestion() {
     }, 2000);
 }
 
+// Function to initialize the 5 minute timer
 function startTimer() {
     clearInterval(timerInterval);
     timerInterval = setInterval(() => {
@@ -164,6 +174,7 @@ function startTimer() {
     }, 1000);
 }
 
+// displays the timer on the screen
 function updateTimer() {
     const mins = Math.floor(timeLeft / 60);
     const secs = timeLeft % 60;
@@ -177,6 +188,7 @@ function updateTimer() {
     }
 }
 
+// Handles the feedback generation and getting the leaderboard from the updateLeaderboard function
 function endQuiz() {
     clearInterval(timerInterval);
     document.getElementById('quizSection').classList.remove('active');
@@ -206,6 +218,7 @@ function endQuiz() {
     updateLeaderboard();
 }
 
+// Stores the top 10 scores and re-calculates them everytime the new quiz is finished
 function updateLeaderboard() {
     const entry = {
         score: userScore,
@@ -234,15 +247,18 @@ function updateLeaderboard() {
     });
 }
 
+// Goes back to the quiz state when and if the user wants to play another quiz
 function restartQuiz() {
     document.getElementById('resultsSection').classList.remove('active');
     document.querySelector('.setup-section').classList.add('active');
 }
 
+// 
 function goHome() {
     location.reload();
 }
 
+// Makes sure the user picks a value
 function updateButton() {
     const btn = document.getElementById('nextBtn');
     btn.textContent = selectedAnswer ? 'Next Question' : 'Select an answer';
